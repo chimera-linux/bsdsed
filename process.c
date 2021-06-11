@@ -690,8 +690,10 @@ regexec_e(regex_t *preg, const char *string, int eflags, int nomatch,
 	memcpy(buf, string + start, slen);
 	buf[slen] = '\0';
 	eval = regexec(defpreg, buf, nomatch ? 0 : maxnsub + 1, match, eflags);
-	match[0].rm_so += start;
-	match[0].rm_eo += start;
+	for (size_t i = 0; i <= (nomatch ? 0 : maxnsub); ++i) {
+		match[i].rm_so += start;
+		match[i].rm_eo += start;
+	}
 	free(buf);
 #else
 	match[0].rm_so = start;
