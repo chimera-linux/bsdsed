@@ -25,8 +25,10 @@ clean:
 	rm -f $(OBJS) $(PROGRAM)
 
 install:
-	install -D -m 755 $(PROGRAM) $(DESTDIR)$(BINDIR)/$(INSTALL_NAME)
-	install -D -m 644 $(PROGRAM).1 $(DESTDIR)$(MANDIR)/$(INSTALL_NAME).1
+	install -d $(DESTDIR)$(BINDIR)
+	install -m 755 $(PROGRAM) $(DESTDIR)$(BINDIR)/$(INSTALL_NAME)
+	install -d $(DESTDIR)$(MANDIR)
+	install -m 644 $(PROGRAM).1 $(DESTDIR)$(MANDIR)/$(INSTALL_NAME).1
 
 check:
 	PATH=.:$(PATH) ./tests/multi_test.sh || exit 1
